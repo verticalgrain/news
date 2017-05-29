@@ -59,22 +59,25 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+        <div className="header">
+
         </div>
         <ul className="newslist">
 
           {this.state.stories.map(function(story){
             return (
               <article className="newslist__item" key={story.url}>
-                <div className="newslist__title">{story.title}</div>
-                <div className="newslist__date">{story.publishedAt}</div>
-                <div className="newslist__description">{story.description}</div>
-                <a className="newslist__link" href={story.url} target="blank">Link</a>
-                <LazyLoad height={250}>
-                  <img className="newslist__image" src={story.urlToImage} />
-                </LazyLoad>
+                <div className="newslist__image">
+                  <LazyLoad height={250}>
+                    <img src={story.urlToImage} />
+                  </LazyLoad>
+                </div>
+                <div className="newslist__content">
+                  <div className="newslist__title">{story.title}</div>
+                  <div className="newslist__date">{story.publishedAt}</div>
+                  <div className="newslist__description">{story.description}</div>
+                  <a className="newslist__link" href={story.url} target="blank">Link</a>
+                </div>
               </article>
             );
           })}
