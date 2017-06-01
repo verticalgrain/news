@@ -1,57 +1,49 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import LazyLoad from 'react-lazyload';
+import babelpolyfill from 'babel-polyfill';
+import Sources from './Sources';
+import Newslist from './Newslist';
 
 class App extends Component {
+  
   constructor(props) {
     super();
+  
+    this.handler = this.handler.bind(this);
+
     this.state = {
-      stories: []
+      selectedSources: ['bbc-news','cnn','google-news']
     }
   }
 
+
   componentDidMount() {
     var that = this;
+  }
 
-    let sources = [
-      'https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=f2bd828e06724a59821444aaec0469dc',
-      'https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=f2bd828e06724a59821444aaec0469dc',
-      'https://newsapi.org/v1/articles?source=google-news&sortBy=top&apiKey=f2bd828e06724a59821444aaec0469dc'
-    ]
-    // var bbc = 'https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=f2bd828e06724a59821444aaec0469dc';
-    // var cnn = 'https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=f2bd828e06724a59821444aaec0469dc';
-    // var googlenews = 'https://newsapi.org/v1/articles?source=google-news&sortBy=top&apiKey=f2bd828e06724a59821444aaec0469dc';
+
+  handler = (event) => {
+
+    // To Do: Move to utility function
+    function deepCopy(obj) {
+      if (obj !== undefined && obj !== null) {
+        return JSON.parse(JSON.stringify(obj));
+      }
+      return null;
+    }
+
+    let selectedSourcesTemp = deepCopy(this.state.selectedSources);
     
-    function custom_sort(a, b) {
-      return new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime();
+    if (this.state.selectedSources.includes(event.target.value)) {
+      var index = selectedSourcesTemp.indexOf(event.target.value)
+      selectedSourcesTemp.splice(index,1);
+    } else {
+      selectedSourcesTemp.push(event.target.value);
     }
 
-    for (let source of sources) {
-      fetch(source)
-      .then(function(response) {
-        if (response.status >= 400) {
-          throw new Error("The news api doesnt seem available right now");
-        }
-        return response.json();
-      })
-      .then(function(data) {
-        let storiesarray = that.state.stories;
-        storiesarray = storiesarray.concat(data.articles);
-        
-        // stories.push(data.articles);
-        // console.log('normal:');
-        console.log(storiesarray);
-        // console.log('sorted;');
-        // console.log(storiesarray.sort(custom_sort));
-
-        that.setState({
-          stories: storiesarray
-        });
-        
-      })
-
-    }
+    this.setState({
+      selectedSources: selectedSourcesTemp
+    });
 
   }
 
@@ -59,29 +51,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="header">
+        
+        <Sources action={this.handler} sources={this.state.selectedSources} />
+        <Newslist sources={this.state.selectedSources} />
 
-        </div>
-        <ul className="newslist">
-
-          {this.state.stories.map(function(story){
-            return (
-              <article className="newslist__item" key={story.url}>
-                <div className="newslist__image">
-                  <LazyLoad height={250}>
-                    <img src={story.urlToImage} />
-                  </LazyLoad>
-                </div>
-                <div className="newslist__content">
-                  <div className="newslist__title">{story.title}</div>
-                  <div className="newslist__date">{story.publishedAt}</div>
-                  <div className="newslist__description">{story.description}</div>
-                  <a className="newslist__link" href={story.url} target="blank">Link</a>
-                </div>
-              </article>
-            );
-          })}
-        </ul>
       </div>
     );
   }
