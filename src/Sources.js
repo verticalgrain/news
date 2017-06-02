@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import babelpolyfill from 'babel-polyfill';
 
 class Sources extends Component {
   
@@ -63,9 +62,7 @@ class Sources extends Component {
             return (
               <div className="source" key={i}>
                 <div className="source__title">
-                  <span>
-                    {source.name} {source.id}
-                  </span>
+                  {source.name} {source.id}
                 </div>
                 <div className="source__checkbox">
                   <input type="checkbox" id={i + '-switch'} value={source.id} onChange={that.props.action} checked={that.props.sources.includes(source.id) ? 'checked' : '' } />

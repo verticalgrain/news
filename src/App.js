@@ -12,13 +12,9 @@ class App extends Component {
     this.handler = this.handler.bind(this);
 
     this.state = {
-      selectedSources: ['bbc-news','cnn','google-news']
+      // selectedSources: ['bbc-news','cnn','google-news']
+      selectedSources: 'bbc-news'
     }
-  }
-
-
-  componentDidMount() {
-    var that = this;
   }
 
 
@@ -32,16 +28,27 @@ class App extends Component {
       return null;
     }
 
-    let selectedSourcesTemp = deepCopy(this.state.selectedSources);
+    // let selectedSourcesTemp = deepCopy(this.state.selectedSources);
     
-    if (this.state.selectedSources.includes(event.target.value)) {
-      var index = selectedSourcesTemp.indexOf(event.target.value)
-      selectedSourcesTemp.splice(index,1);
-    } else {
-      selectedSourcesTemp.push(event.target.value);
-    }
+    // if (this.state.selectedSources.includes(event.target.value)) {
+    //   var index = selectedSourcesTemp.indexOf(event.target.value)
+    //   selectedSourcesTemp.splice(index,1);
+    // } else {
+    //   selectedSourcesTemp.push(event.target.value);
+    // }
+
+    // if (this.state.selectedSources.includes(event.target.value)) {
+    //   // var index = selectedSourcesTemp.indexOf(event.target.value)
+    //   // selectedSourcesTemp.splice(index,1);
+    //   selectedSourcesTemp = '';
+    // } else {
+    //   selectedSourcesTemp = event.target.value;
+    // }
+
+    let selectedSourcesTemp = deepCopy(event.target.value);
 
     this.setState({
+      // selectedSources: selectedSourcesTemp
       selectedSources: selectedSourcesTemp
     });
 
@@ -51,10 +58,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        
+        <input type="checkbox" className="trigger" />
         <Sources action={this.handler} sources={this.state.selectedSources} />
         <Newslist sources={this.state.selectedSources} />
-
       </div>
     );
   }
