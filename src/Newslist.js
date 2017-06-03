@@ -44,6 +44,8 @@ class App extends Component {
         stories: data.articles
       });
 
+      window.scrollTo(0, 0);
+
     })
   }
 
