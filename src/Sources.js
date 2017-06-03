@@ -62,7 +62,7 @@ class Sources extends Component {
             return (
               <div className="source" key={i}>
                 <div className="source__title">
-                  {source.name} {source.id}
+                  {source.name}
                 </div>
                 <div className="source__checkbox">
                   <input type="checkbox" id={i + '-switch'} value={source.id} onChange={that.props.action} checked={that.props.sources.includes(source.id) ? 'checked' : '' } />

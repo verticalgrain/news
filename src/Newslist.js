@@ -36,6 +36,10 @@ class App extends Component {
     })
     .then(function(data) {
 
+      data.articles.forEach(function(article){
+        article['source'] = sourceid.replace(/-/g, ' ');
+      });
+
       that.setState({
         stories: data.articles
       });
@@ -68,7 +72,7 @@ class App extends Component {
                   <div className="newslist__title">{story.title}</div>
                   <div className="newslist__date">{moment(story.publishedAt).fromNow()}</div>
                   <div className="newslist__description">{story.description}</div>
-                  <a className="newslist__link" href={story.url} target="blank">Link</a>
+                  <a className="newslist__link" href={story.url} target="blank">Read the full article...</a>
                 </div>
               </article>
             );
