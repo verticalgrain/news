@@ -7,7 +7,6 @@ class Sources extends Component {
     super(props);
     this.state = {
       sources: [],
-      // selectedSources: ['bbc-news','cnn','google-news']
     }
   }
 
@@ -34,29 +33,11 @@ class Sources extends Component {
   }
 
 
-  // toggleChange = (event) => {
-  //   // let sourcesArray = this.state.selectedSources;
-  //   let selectedSourcesTemp = this.state.selectedSources;
-    
-  //   if (this.state.selectedSources.includes(event.target.value)) {
-  //     var index = selectedSourcesTemp.indexOf(event.target.value)
-  //     selectedSourcesTemp.splice(index,1);
-  //   } else {
-  //     selectedSourcesTemp.push(event.target.value);
-  //   }
-
-  //   this.setState({
-  //     selectedSources: selectedSourcesTemp
-  //   });
-
-  // }
-
-
   render() {
     const that = this;
 
     return (
-      <div className="sources">
+      <div className="sources-list sources-list--right">
         <form id="sources">
           {this.state.sources.map(function(source,i){
             return (
@@ -65,7 +46,7 @@ class Sources extends Component {
                   {source.name}
                 </div>
                 <div className="source__checkbox">
-                  <input type="checkbox" id={i + '-switch'} value={source.id} onChange={that.props.action} checked={that.props.sources.includes(source.id) ? 'checked' : '' } />
+                  <input type="checkbox" id={i + '-switch'} value={source.id} onChange={that.props.action} checked={that.props.selectedSources.includes(source.id) ? 'checked' : '' } />
                   <label htmlFor={i + '-switch'}>Toggle</label>
                 </div>
               </div>

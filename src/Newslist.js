@@ -52,7 +52,7 @@ class App extends Component {
 
   componentDidMount() {
     var that = this;
-    this.fetchStories(that.props.sources);
+    this.fetchStories(that.props.currentsource);
   }
 
 
@@ -88,10 +88,10 @@ class App extends Component {
   componentDidUpdate(prevProps) {
     var that = this;
 
-    if (prevProps.sources === that.props.sources) {
+    if (prevProps.currentsource === that.props.currentsource) {
       return false;
     } else {
-      this.fetchStories(that.props.sources);
+      this.fetchStories(that.props.currentsource);
     }
 
   }

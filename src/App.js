@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import babelpolyfill from 'babel-polyfill';
+import SelectedSources from './SelectedSources';
 import Sources from './Sources';
 import Newslist from './Newslist';
 
@@ -9,16 +10,35 @@ class App extends Component {
   constructor(props) {
     super();
   
-    this.handler = this.handler.bind(this);
+    this.handler = this.currentSourceHandler.bind(this);
 
     this.state = {
-      // selectedSources: ['bbc-news','cnn','google-news']
-      selectedSources: 'bbc-news'
+      selectedSources: ['bbc-news','cnn','google-news'],
+      currentSource: 'bbc-news'
     }
   }
 
 
-  handler = (event) => {
+  selectedSourcesHandler = (event) => {
+
+    const selectedSources = this.state.selectedSources;
+
+    if (this.state.selectedSources.includes(event.target.value)) {
+      var index = selectedSources.indexOf(event.target.value)
+      selectedSources.splice(index,1);
+    } else {
+      selectedSources.push(event.target.value);
+    }
+
+    console.log(selectedSources);
+
+    this.setState({
+      selectedSources: selectedSources
+    })
+  }
+
+
+  currentSourceHandler = (event) => {
 
     // To Do: Move to utility function
     function deepCopy(obj) {
@@ -28,28 +48,10 @@ class App extends Component {
       return null;
     }
 
-    // let selectedSourcesTemp = deepCopy(this.state.selectedSources);
-    
-    // if (this.state.selectedSources.includes(event.target.value)) {
-    //   var index = selectedSourcesTemp.indexOf(event.target.value)
-    //   selectedSourcesTemp.splice(index,1);
-    // } else {
-    //   selectedSourcesTemp.push(event.target.value);
-    // }
-
-    // if (this.state.selectedSources.includes(event.target.value)) {
-    //   // var index = selectedSourcesTemp.indexOf(event.target.value)
-    //   // selectedSourcesTemp.splice(index,1);
-    //   selectedSourcesTemp = '';
-    // } else {
-    //   selectedSourcesTemp = event.target.value;
-    // }
-
-    let selectedSourcesTemp = deepCopy(event.target.value);
+    let currentSourceNew = deepCopy(event.target.value);
 
     this.setState({
-      // selectedSources: selectedSourcesTemp
-      selectedSources: selectedSourcesTemp
+      currentSource: currentSourceNew
     });
 
   }
@@ -59,8 +61,14 @@ class App extends Component {
     return (
       <div className="App">
         <input type="checkbox" className="trigger" />
-        <Sources action={this.handler} sources={this.state.selectedSources} />
-        <Newslist sources={this.state.selectedSources} />
+        <div className="sources">
+          <label htmlFor="toggle-sources--checkbox" className="toggle-sources">Add / Remove Sources
+          </label>
+          <input id="toggle-sources--checkbox" className="toggle-sources toggle-sources--checkbox" type="checkbox" />
+          <SelectedSources action={this.currentSourceHandler} selectedSources={this.state.selectedSources} currentsource={this.state.currentSource} />
+          <Sources action={this.selectedSourcesHandler} selectedSources={this.state.selectedSources} />
+        </div>
+        <Newslist currentsource={this.state.currentSource} />
       </div>
     );
   }
