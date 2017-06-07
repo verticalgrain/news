@@ -12,11 +12,19 @@ class App extends Component {
   
     this.handler = this.currentSourceHandler.bind(this);
 
+    // Fetch selectedSourcesLocal from localstorage
+    const selectedSourcesLocalstorage = JSON.parse(localStorage.getItem( 'selectedSourcesLocal' )) || ['bbc-news','cnn','google-news'];
+
+    // Fetch currentSourceLocal from localstorage 
+    const currentSourceLocalstorage = JSON.parse(localStorage.getItem( 'currentSourceLocal' )) || 'bbc-news';
+
     this.state = {
-      selectedSources: ['bbc-news','cnn','google-news'],
-      currentSource: 'bbc-news'
+      selectedSources: selectedSourcesLocalstorage,
+      currentSource: currentSourceLocalstorage
     }
   }
+
+
 
 
   selectedSourcesHandler = (event) => {
@@ -30,7 +38,8 @@ class App extends Component {
       selectedSources.push(event.target.value);
     }
 
-    console.log(selectedSources);
+    // Update selectedSources in localstorage
+    localStorage.setItem( 'selectedSourcesLocal', JSON.stringify(selectedSources) );
 
     this.setState({
       selectedSources: selectedSources
@@ -49,6 +58,9 @@ class App extends Component {
     }
 
     let currentSourceNew = deepCopy(event.target.value);
+
+    // Update currentSourceLocal in localstorage
+    localStorage.setItem( 'currentSourceLocal', JSON.stringify(currentSourceNew) );
 
     this.setState({
       currentSource: currentSourceNew

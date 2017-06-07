@@ -7,8 +7,7 @@
     "moment": "^2.18.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "react-lazyload": "^2.2.7",
-    "semantic-ui-react": "^0.68.4"
+    "react-lazyload": "^2.2.7"
   },
   "devDependencies": {
     "gh-pages": "^1.0.0",
