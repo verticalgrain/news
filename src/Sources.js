@@ -46,8 +46,8 @@ class Sources extends Component {
                   {source.name}
                 </div>
                 <div className="source__checkbox">
-                  <input type="checkbox" id={i + '-switch'} value={source.id} onChange={that.props.action} checked={that.props.selectedSources.includes(source.id) ? 'checked' : '' } />
-                  <label htmlFor={i + '-switch'}>Toggle</label>
+                  <input type="checkbox" id={i + '-currentsourceswitch'} value={source.id} onChange={that.props.action} checked={that.props.selectedSources.includes(source.id) ? 'checked' : '' } />
+                  <label htmlFor={i + '-currentsourceswitch'}>Toggle</label>
                 </div>
               </div>
             );
