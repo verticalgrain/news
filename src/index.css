@@ -198,6 +198,11 @@ a {
   width: 50%;
 }
 
+.source__checkbox {
+  overflow: hidden;
+  position: relative;
+}
+
 .source__title {
   padding-right: 10px;
 }
