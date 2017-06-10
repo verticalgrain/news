@@ -20,7 +20,8 @@ class App extends Component {
 
     this.state = {
       selectedSources: selectedSourcesLocalstorage,
-      currentSource: currentSourceLocalstorage
+      currentSource: currentSourceLocalstorage,
+      toggleSources: false
     }
   }
 
@@ -69,14 +70,20 @@ class App extends Component {
   }
 
 
+  toggleSources = (e) => {
+    this.setState({
+      toggleSources: e.target.checked
+    })
+
+  }
+
   render() {
     return (
       <div className="App">
         <input type="checkbox" className="trigger" />
-        <div className="sources">
-          <label htmlFor="toggle-sources--checkbox" className="toggle-sources">Add / Remove Sources
-          </label>
-          <input id="toggle-sources--checkbox" className="toggle-sources toggle-sources--checkbox" type="checkbox" />
+        <div className="sources" ref="sources">
+          <input id="toggle-sources" type="checkbox" className="toggle-sources__input" onChange={this.toggleSources} checked={this.state.toggleSources} />
+          <label htmlFor="toggle-sources" className="toggle-sources__label">{ this.state.toggleSources === true ? 'Back' : 'Add / Remove Sources' }</label>
           <SelectedSources action={this.currentSourceHandler} selectedSources={this.state.selectedSources} currentsource={this.state.currentSource} />
           <Sources action={this.selectedSourcesHandler} selectedSources={this.state.selectedSources} />
         </div>

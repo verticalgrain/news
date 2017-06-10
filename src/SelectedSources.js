@@ -17,14 +17,9 @@ class SelectedSources extends Component {
         <form id="selectedsources">
           {this.props.selectedSources.map(function(source,i){
             return (
-              <div className="source" key={i}>
-                <div className="source__title">
-                  {source.replace(/-/g, ' ')}
-                </div>
-                <div className="source__checkbox">
-                  <input type="checkbox" id={i + '-selectedsourceswitch'} value={source} onChange={that.props.action} checked={that.props.currentsource.includes(source) ? 'checked' : '' } />
-                  <label htmlFor={i + '-selectedsourceswitch'}>Toggle</label>
-                </div>
+              <div className="item item--simple" key={i}>
+                <input type="checkbox" id={i + '-selectedsourceswitch'} value={source} onChange={that.props.action} checked={that.props.currentsource.includes(source) ? 'checked' : '' } />
+                <label htmlFor={i + '-selectedsourceswitch'}>{source.replace(/-/g, ' ')}</label>
               </div>
             );
           })}

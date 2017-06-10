@@ -41,12 +41,9 @@ class Sources extends Component {
         <form id="sources">
           {this.state.sources.map(function(source,i){
             return (
-              <div className="plus-minus" key={i}>
-                <div className="plus-minus__title">
-                  {source.name}
-                </div>
+              <div className="item item--plusminus" key={i}>
                 <input type="checkbox" id={i + '-currentsourceswitch'} value={source.id} onChange={that.props.action} checked={that.props.selectedSources.includes(source.id) ? 'checked' : '' } />
-                <label className="plus-minus__checkbox" htmlFor={i + '-currentsourceswitch'}>{that.props.selectedSources.includes(source.id) ? 'Remove Source' : 'Add Source' }</label>
+                <label htmlFor={i + '-currentsourceswitch'}>{source.name}</label>
               </div>
             );
           })}
