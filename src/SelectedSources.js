@@ -5,8 +5,28 @@ class SelectedSources extends Component {
   
   constructor(props) {
     super(props);
+
     this.state = {
+      selectedSources: this.props.selectedSources
     }
+  }
+
+  // To do: move to functions file
+  sortAlpha = (array) => {
+    let stateAlpha = array;
+    stateAlpha = stateAlpha.sort();
+    this.setState = {
+      selectedSources: stateAlpha
+    }
+  }
+
+
+  componentWillUpdate = () => {
+    this.sortAlpha(this.props.selectedSources)
+  }
+
+  componentWillMount = () => {
+    this.sortAlpha(this.props.selectedSources)
   }
 
   render() {
@@ -15,7 +35,7 @@ class SelectedSources extends Component {
     return (
       <div className="sources-list sources-list--left">
         <form id="selectedsources">
-          {this.props.selectedSources.map(function(source,i){
+          {that.state.selectedSources.map(function(source,i){
             return (
               <div className="item item--simple" key={i}>
                 <input type="checkbox" id={i + '-selectedsourceswitch'} value={source} onChange={that.props.action} checked={that.props.currentsource.includes(source) ? 'checked' : '' } />

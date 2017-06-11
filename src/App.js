@@ -71,17 +71,20 @@ class App extends Component {
 
 
   toggleSources = (e) => {
+    
+    // this.refs.sourcesList.getDOMNode().scrollTop += 10
+
     this.setState({
       toggleSources: e.target.checked
     })
-
+ 
   }
 
   render() {
     return (
       <div className="App">
         <input type="checkbox" className="trigger" />
-        <div className="sources" ref="sources">
+        <div className="sources">
           <input id="toggle-sources" type="checkbox" className="toggle-sources__input" onChange={this.toggleSources} checked={this.state.toggleSources} />
           <label htmlFor="toggle-sources" className="toggle-sources__label">{ this.state.toggleSources === true ? 'Back' : 'Add / Remove Sources' }</label>
           <SelectedSources action={this.currentSourceHandler} selectedSources={this.state.selectedSources} currentsource={this.state.currentSource} />
