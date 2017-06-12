@@ -21,11 +21,9 @@ class App extends Component {
     this.state = {
       selectedSources: selectedSourcesLocalstorage,
       currentSource: currentSourceLocalstorage,
-      toggleSources: false
+      toggleSources: false,
     }
   }
-
-
 
 
   selectedSourcesHandler = (event) => {

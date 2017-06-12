@@ -11,6 +11,7 @@ class App extends Component {
 
     this.state = {
       stories: [],
+      lastUpdated: new Date()
     }
 
   }
@@ -22,7 +23,7 @@ class App extends Component {
     }
     return null;
   }
-
+  
 
   fetchStories = (sourceid) => {
     var that = this;
@@ -41,10 +42,15 @@ class App extends Component {
       });
 
       that.setState({
-        stories: data.articles
+        stories: data.articles,
+        lastUpdated: new Date()
       });
 
       window.scrollTo(0, 0);
+
+      that.interval = setInterval(() => {
+        that.forceUpdate();
+      }, 30000);
 
     })
   }
@@ -59,6 +65,7 @@ class App extends Component {
   render() {
     return (
       <div className="newslist-wrapper">
+        <div className="lastupdated">last updated {moment(this.state.lastUpdated).fromNow()}</div>
         <ul className="newslist">
           {console.log('render')}
           {this.state.stories.map(function(story,i){
@@ -94,6 +101,10 @@ class App extends Component {
       this.fetchStories(that.props.currentsource);
     }
 
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
 
