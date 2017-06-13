@@ -44,6 +44,7 @@ class SelectedSources extends Component {
             );
           })}
         </form>
+        <div className="poweredby">powered by <a href="https://newsapi.org">newsapi.org</a></div>
       </div>
     );
   }
