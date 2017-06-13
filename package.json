@@ -23,5 +23,5 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "http://verticalgrain.github.io/news"
+  "homepage": "http://lofi.news"
 }
