@@ -4,6 +4,7 @@ import babelpolyfill from 'babel-polyfill';
 import SelectedSources from './SelectedSources';
 import Sources from './Sources';
 import Newslist from './Newslist';
+import Slideout from 'slideout';
 
 class App extends Component {
   
@@ -23,6 +24,7 @@ class App extends Component {
       currentSource: currentSourceLocalstorage,
       toggleSources: false,
     }
+
   }
 
 
@@ -81,16 +83,26 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <input type="checkbox" className="trigger" />
-        <div className="sources">
+        <nav className="sources" id="sources">
           <input id="toggle-sources" type="checkbox" className="toggle-sources__input" onChange={this.toggleSources} checked={this.state.toggleSources} />
           <label htmlFor="toggle-sources" className="toggle-sources__label">{ this.state.toggleSources === true ? 'Back' : 'Add / Remove Sources' }</label>
           <SelectedSources action={this.currentSourceHandler} selectedSources={this.state.selectedSources} currentsource={this.state.currentSource} />
           <Sources action={this.selectedSourcesHandler} selectedSources={this.state.selectedSources} />
-        </div>
-        <Newslist currentsource={this.state.currentSource} />
+        </nav>
+        <main id="panel">
+          <Newslist currentsource={this.state.currentSource} />
+        </main>
       </div>
     );
+  }
+
+  componentDidMount() {
+    var slideout = new Slideout({
+      'panel': document.getElementById('panel'),
+      'menu': document.getElementById('sources'),
+      'padding': 270,
+      'tolerance': 70
+    });
   }
 }
 
