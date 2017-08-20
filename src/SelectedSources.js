@@ -20,7 +20,6 @@ class SelectedSources extends Component {
     }
   }
 
-
   componentWillUpdate = () => {
     this.sortAlpha(this.props.selectedSources)
   }
@@ -44,7 +43,7 @@ class SelectedSources extends Component {
             );
           })}
         </form>
-        <div className="poweredby">powered by <a href="https://newsapi.org">newsapi.org</a></div>
+        <div className="poweredby">news feed by <a href="https://newsapi.org">newsapi.org</a></div>
       </div>
     );
   }

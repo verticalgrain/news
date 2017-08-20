@@ -18,7 +18,8 @@ class Sources extends Component {
     fetch(api)
     .then(function(response) {
       if (response.status >= 400) {
-        throw new Error("The news api doesnt seem available right now");
+        // throw new Error("The news api doesnt seem available right now");
+        console.log("The news api doesnt seem available right now");
       }
       return response.json();
     })

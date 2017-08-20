@@ -11,10 +11,12 @@ class App extends Component {
   constructor(props) {
     super();
   
+    
+
     this.handler = this.currentSourceHandler.bind(this);
 
     // Fetch selectedSourcesLocal from localstorage
-    const selectedSourcesLocalstorage = JSON.parse(localStorage.getItem( 'selectedSourcesLocal' )) || ['bbc-news','cnn','google-news'];
+    const selectedSourcesLocalstorage = JSON.parse(localStorage.getItem( 'selectedSourcesLocal' )) || ['bbc-news','cnn','google-news','time','the-economist','reddit-r-all','national-geographic','hacker-news','fox-sports'];
 
     // Fetch currentSourceLocal from localstorage 
     const currentSourceLocalstorage = JSON.parse(localStorage.getItem( 'currentSourceLocal' )) || 'bbc-news';
@@ -63,6 +65,8 @@ class App extends Component {
     // Update currentSourceLocal in localstorage
     localStorage.setItem( 'currentSourceLocal', JSON.stringify(currentSourceNew) );
 
+    this.slideout.close();
+
     this.setState({
       currentSource: currentSourceNew
     });
@@ -84,8 +88,14 @@ class App extends Component {
     return (
       <div className="App">
         <nav className="sources" id="sources">
+          <div className="logo">
+            Lofi<br/>
+            News
+          </div>
+          
           <input id="toggle-sources" type="checkbox" className="toggle-sources__input" onChange={this.toggleSources} checked={this.state.toggleSources} />
-          <label htmlFor="toggle-sources" className="toggle-sources__label">{ this.state.toggleSources === true ? 'Back' : 'Add / Remove Sources' }</label>
+          <label htmlFor="toggle-sources" className="toggle-sources__label">{ this.state.toggleSources === true ? 'Back to your sources' : 'See all 70 sources' }</label>
+          
           <SelectedSources action={this.currentSourceHandler} selectedSources={this.state.selectedSources} currentsource={this.state.currentSource} />
           <Sources action={this.selectedSourcesHandler} selectedSources={this.state.selectedSources} />
         </nav>
@@ -97,7 +107,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    var slideout = new Slideout({
+    this.slideout = new Slideout({
       'panel': document.getElementById('panel'),
       'menu': document.getElementById('sources'),
       'padding': 270,
