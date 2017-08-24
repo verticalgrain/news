@@ -110,8 +110,10 @@ class App extends Component {
     this.slideout = new Slideout({
       'panel': document.getElementById('panel'),
       'menu': document.getElementById('sources'),
+      'duration': 100,
       'padding': 270,
-      'tolerance': 70
+      'tolerance': 70,
+      'easing': 'ease-in-out'
     });
   }
 }
