@@ -3,7 +3,7 @@ import './App.css';
 import LazyLoad from 'react-lazyload';
 import moment from 'moment';
 import PlaceholderComponent from './Placeholder';
-import MasonryInfiniteScroller from 'react-masonry-infinite';
+import { XMasonry, XBlock } from 'react-xmasonry/dist/index.js';
 
 class App extends Component {
   
@@ -70,28 +70,28 @@ class App extends Component {
       <div className="newslist-wrapper">
         <div className="lastupdated">last updated {moment(this.state.lastUpdated).fromNow()}</div>
         <ul className="newslist">
-          <MasonryInfiniteScroller hasMore={this.state.hasMore} loadMore={() => this.setState({ elements: this.state.elements.push("Element") })}>
-
+          <XMasonry>
             {this.state.stories.map(function(story,i){
               return (
-                <div className="newslist__item" key={i + '-' + story.url}>
-                  <div className="newslist__image">
-                    <LazyLoad placeholder={<PlaceholderComponent />} height={250} offset={[700, 0]}>
-                      <img src={story.urlToImage} alt={story.title} />
-                    </LazyLoad>
-                    <div className="newslist__source">{story.source}</div>
-                  </div>
-                  <div className="newslist__content">
-                    <div className="newslist__title">{story.title}</div>
-                    <div className="newslist__date">{moment(story.publishedAt).fromNow()}</div>
-                    <div className="newslist__description">{story.description}</div>
-                    <a className="newslist__link" href={story.url} target="blank">Read the full article...</a>
-                  </div>
-                </div>
+                <XBlock>
+                  <li className="newslist__item" key={i + '-' + story.url}>
+                    <div className="newslist__image">
+                      <LazyLoad placeholder={<PlaceholderComponent />} height={250} offset={[700, 0]}>
+                        <img src={story.urlToImage} alt={story.title} />
+                      </LazyLoad>
+                      <div className="newslist__source">{story.source}</div>
+                    </div>
+                    <div className="newslist__content">
+                      <div className="newslist__title">{story.title}</div>
+                      <div className="newslist__date">{moment(story.publishedAt).fromNow()}</div>
+                      <div className="newslist__description">{story.description}</div>
+                      <a className="newslist__link" href={story.url} target="blank">Read the full article...</a>
+                    </div>
+                  </li>
+                </XBlock>
               );
             })}
-
-          </MasonryInfiniteScroller>
+          </XMasonry>
         </ul>
       </div>
     );
