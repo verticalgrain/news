@@ -1,0 +1,18 @@
+.sources-list {
+  transition-duration: 0.2s;
+  position: absolute;
+  top: 111px;
+  width: 100%;
+  padding: 20px;
+  height: calc(100vh - 111px);
+  max-height: calc(100vh - 111px);
+  overflow-y: scroll;
+}
+
+.sources-list--left {
+  left: 0;
+}
+
+.sources-list--right {
+  left: 100%;
+}
